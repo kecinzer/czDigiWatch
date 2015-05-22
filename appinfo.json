@@ -1,0 +1,17 @@
+{
+  "uuid": "d20e9f6a-ec43-46b6-b757-fe42d6a80ffa",
+  "shortName": "czDigiWatch",
+  "longName": "czDigiWatch",
+  "companyName": "kecinzer",
+  "versionCode": 1,
+  "versionLabel": "1.2",
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
