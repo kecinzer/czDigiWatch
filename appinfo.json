@@ -9,7 +9,8 @@
     "watchface": true
   },
   "appKeys": {
-    "dummy": 0
+    "WEATHER_TEMPERATURE_KEY": 1,
+    "WEATHER_ICON_KEY": 0
   },
   "resources": {
     "media": [
@@ -18,6 +19,26 @@
         "type": "png",
         "name": "IMAGE_MENU_ICON",
         "file": "images/menu_icon.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_SUN",
+        "file": "images/sun.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_RAIN",
+        "file": "images/rain.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_CLOUD",
+        "file": "images/cloud.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_SNOW",
+        "file": "images/snow.png"
       }
     ]
   }
