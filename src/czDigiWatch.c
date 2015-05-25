@@ -124,9 +124,14 @@ static void update_time() {
   text_layer_set_text(seconds, secs);
 
   // aktualizace každý den o půlnoci
-  if (t->tm_hour == 0 && t->tm_min == 0) {
+  if (t->tm_hour == 0 && t->tm_min == 0 && t->tm_sec == 0) {
     update_day();
   }
+  // aktualizace počasí každých 20 minut
+  if ((t->tm_min == 2 || t->tm_min == 22 || t->tm_min == 42) && t->tm_sec == 0) {
+    request_weather();
+  }
+
 }
 
 static void main_window_load(Window *window) {
@@ -156,7 +161,7 @@ static void main_window_load(Window *window) {
   
   Tuplet initial_values[] = {
     TupletInteger(WEATHER_ICON_KEY, (uint8_t) 1),
-    TupletCString(WEATHER_TEMPERATURE_KEY, "1234\u00B0C"),
+    TupletCString(WEATHER_TEMPERATURE_KEY, "---"),
   };
 
   app_sync_init(&s_sync, s_sync_buffer, sizeof(s_sync_buffer), 
