@@ -4,11 +4,13 @@
   "longName": "czDigiWatch",
   "companyName": "kecinzer",
   "versionCode": 1,
-  "versionLabel": "1.4",
+  "versionLabel": "1.5",
   "watchapp": {
     "watchface": true
   },
   "appKeys": {
+    "WEATHER_TEMPERATURE_NEXT_KEY": 3,
+    "WEATHER_ICON_NEXT_KEY": 2,
     "WEATHER_TEMPERATURE_KEY": 1,
     "WEATHER_ICON_KEY": 0
   },
