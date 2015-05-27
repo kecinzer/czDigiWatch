@@ -25,10 +25,16 @@ enum {
 };
 
 static const uint32_t WEATHER_ICONS[] = {
-  RESOURCE_ID_IMAGE_SUN, //0
-  RESOURCE_ID_IMAGE_CLOUD, //1
-  RESOURCE_ID_IMAGE_RAIN, //2
-  RESOURCE_ID_IMAGE_SNOW //3
+  RESOURCE_ID_IMAGE_CLEAR_DAY,
+  RESOURCE_ID_IMAGE_CLEAR_NIGHT,
+  RESOURCE_ID_IMAGE_CLOUDY,
+  RESOURCE_ID_IMAGE_FOG,
+  RESOURCE_ID_IMAGE_PARTLY_CLOUDY_DAY,
+  RESOURCE_ID_IMAGE_PARTLY_CLOUDY_NIGHT,
+  RESOURCE_ID_IMAGE_RAIN,
+  RESOURCE_ID_IMAGE_SLEET,
+  RESOURCE_ID_IMAGE_SNOW,
+  RESOURCE_ID_IMAGE_WIND
 };
 
 static void in_received_handler(DictionaryIterator *received, void *context) {
@@ -47,7 +53,7 @@ static void in_received_handler(DictionaryIterator *received, void *context) {
     		if (icon_bitmap) {
 		    	gbitmap_destroy(icon_bitmap);
 		    }
-		    icon_bitmap = gbitmap_create_with_resource(WEATHER_ICONS[t->value->uint8]);
+		    icon_bitmap = gbitmap_create_with_resource(WEATHER_ICONS[2]);
 		    bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
 		    break;
     	case WEATHER_ICON_NEXT_KEY:

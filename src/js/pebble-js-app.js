@@ -1,13 +1,27 @@
 
-function iconFromWeatherId(weatherId) {
+function iconFromWeatherId(weatherId, daynight) {
   if (weatherId < 600) {
-    return 2;
+    return 6; // rain
+  } else if (weatherId == 611 || weatherId == 612) {
+    return 7; // sleet
   } else if (weatherId < 700) {
-    return 3;
+    return 8; // snow
+  } else if (weatherId < 800) {
+    return 3; // fog
+  } else if (weatherId == 801) {
+    if (daynight == 'd') { 
+      return 4; // partly cloudy day
+    } else {
+      return 5; // partly cloudy night
+    }
   } else if (weatherId > 800) {
-    return 1;
+    return 2; // cloudy
   } else {
-    return 0;
+    if (daynight == 'd') { 
+      return 0; // clear day
+    } else {
+      return 1; // clear night
+    }
   }
 }
 
@@ -28,7 +42,7 @@ function fetchWeather(latitude, longitude) {
 
         var response = JSON.parse(req.responseText);
         temperature = Math.round(response.main.temp - 273.15);
-        icon = iconFromWeatherId(response.weather[0].id);
+        icon = iconFromWeatherId(response.weather[0].id, response.weather[0].icon.slice(-1));
         var city = response.name;
         console.log(city);
         sendWeather();
@@ -49,7 +63,7 @@ function fetchWeather(latitude, longitude) {
         
         var response = JSON.parse(req2.responseText);
         temperature_next = Math.round(response.list[1].temp.day - 273.15);
-        icon_next = iconFromWeatherId(response.list[1].weather[0].id);
+        icon_next = iconFromWeatherId(response.list[1].weather[0].id, response.list[1].weather[0].icon.slice(-1));
         var city = response.city.name;
         console.log(city);
         sendWeather();

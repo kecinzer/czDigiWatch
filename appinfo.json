@@ -24,8 +24,33 @@
       },
       {
         "type": "png",
-        "name": "IMAGE_SUN",
-        "file": "images/sun.png"
+        "name": "IMAGE_CLEAR_DAY",
+        "file": "images/clear-day.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_CLEAR_NIGHT",
+        "file": "images/clear-night.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_CLOUDY",
+        "file": "images/cloudy.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_FOG",
+        "file": "images/fog.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_PARTLY_CLOUDY_DAY",
+        "file": "images/partly-cloudy-day.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_PARTLY_CLOUDY_NIGHT",
+        "file": "images/partly-cloudy-night.png"
       },
       {
         "type": "png",
@@ -34,13 +59,18 @@
       },
       {
         "type": "png",
-        "name": "IMAGE_CLOUD",
-        "file": "images/cloud.png"
+        "name": "IMAGE_SLEET",
+        "file": "images/sleet.png"
       },
       {
         "type": "png",
         "name": "IMAGE_SNOW",
         "file": "images/snow.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_WIND",
+        "file": "images/wind.png"
       }
     ]
   }
