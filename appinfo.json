@@ -24,6 +24,116 @@
       },
       {
         "type": "png",
+        "name": "IMAGE_BATTERY_00",
+        "file": "images/battery_00.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_00",
+        "file": "images/battery_ch_00.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_10",
+        "file": "images/battery_10.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_10",
+        "file": "images/battery_ch_10.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_20",
+        "file": "images/battery_20.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_20",
+        "file": "images/battery_ch_20.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_30",
+        "file": "images/battery_30.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_30",
+        "file": "images/battery_ch_30.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_40",
+        "file": "images/battery_40.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_40",
+        "file": "images/battery_ch_40.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_50",
+        "file": "images/battery_50.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_50",
+        "file": "images/battery_ch_50.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_60",
+        "file": "images/battery_60.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_60",
+        "file": "images/battery_ch_60.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_70",
+        "file": "images/battery_70.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_70",
+        "file": "images/battery_ch_70.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_80",
+        "file": "images/battery_80.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_80",
+        "file": "images/battery_ch_80.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_90",
+        "file": "images/battery_90.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_90",
+        "file": "images/battery_ch_90.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_100",
+        "file": "images/battery_100.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_BATTERY_CH_100",
+        "file": "images/battery_ch_100.png"
+      },
+      {
+        "type": "png",
         "name": "IMAGE_CLEAR_DAY",
         "file": "images/clear-day.png"
       },

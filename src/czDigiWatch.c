@@ -16,6 +16,9 @@ static BitmapLayer *icon_layer;
 static BitmapLayer *icon_next_layer;
 static GBitmap *icon_bitmap = NULL;
 static GBitmap *icon_bitmap_next = NULL;
+static BitmapLayer *battery_layer;
+static GBitmap *icon_battery = NULL;
+static TextLayer *battery_percent_layer;
 
 enum {
   WEATHER_ICON_KEY,
@@ -37,6 +40,34 @@ static const uint32_t WEATHER_ICONS[] = {
   RESOURCE_ID_IMAGE_WIND
 };
 
+static const uint32_t BATTERY_ICON[] = {
+  RESOURCE_ID_IMAGE_BATTERY_00,
+  RESOURCE_ID_IMAGE_BATTERY_10,
+  RESOURCE_ID_IMAGE_BATTERY_20,
+  RESOURCE_ID_IMAGE_BATTERY_30,
+  RESOURCE_ID_IMAGE_BATTERY_40,
+  RESOURCE_ID_IMAGE_BATTERY_50,
+  RESOURCE_ID_IMAGE_BATTERY_60,
+  RESOURCE_ID_IMAGE_BATTERY_70,
+  RESOURCE_ID_IMAGE_BATTERY_80,
+  RESOURCE_ID_IMAGE_BATTERY_90,
+  RESOURCE_ID_IMAGE_BATTERY_100
+};
+
+static const uint32_t BATTERY_CH_ICON[] = {
+  RESOURCE_ID_IMAGE_BATTERY_CH_00,
+  RESOURCE_ID_IMAGE_BATTERY_CH_10,
+  RESOURCE_ID_IMAGE_BATTERY_CH_20,
+  RESOURCE_ID_IMAGE_BATTERY_CH_30,
+  RESOURCE_ID_IMAGE_BATTERY_CH_40,
+  RESOURCE_ID_IMAGE_BATTERY_CH_50,
+  RESOURCE_ID_IMAGE_BATTERY_CH_60,
+  RESOURCE_ID_IMAGE_BATTERY_CH_70,
+  RESOURCE_ID_IMAGE_BATTERY_CH_80,
+  RESOURCE_ID_IMAGE_BATTERY_CH_90,
+  RESOURCE_ID_IMAGE_BATTERY_CH_100
+};
+
 static void in_received_handler(DictionaryIterator *received, void *context) {
 	Tuple *t = dict_read_first(received);
   // For all items
@@ -53,7 +84,7 @@ static void in_received_handler(DictionaryIterator *received, void *context) {
     		if (icon_bitmap) {
 		    	gbitmap_destroy(icon_bitmap);
 		    }
-		    icon_bitmap = gbitmap_create_with_resource(WEATHER_ICONS[2]);
+		    icon_bitmap = gbitmap_create_with_resource(WEATHER_ICONS[t->value->uint8]);
 		    bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
 		    break;
     	case WEATHER_ICON_NEXT_KEY:
@@ -106,7 +137,7 @@ static void update_day() {
       "listopadu", "prosince"};
 
   configureLayer(day_in_week, FONT_KEY_GOTHIC_18_BOLD, GTextAlignmentCenter);
-  configureLayer(date, FONT_KEY_GOTHIC_18, GTextAlignmentCenter);
+  configureLayer(date, FONT_KEY_GOTHIC_18, GTextAlignmentLeft);
   configureLayer(nameday1_line, public_holiday(t, 0) ? FONT_KEY_GOTHIC_24_BOLD : FONT_KEY_GOTHIC_24, GTextAlignmentCenter);
   configureLayer(nameday2_line, public_holiday(t, 1) ? FONT_KEY_GOTHIC_18_BOLD : FONT_KEY_GOTHIC_18, GTextAlignmentCenter);
 
@@ -119,6 +150,21 @@ static void update_day() {
   text_layer_set_text(nameday1_line, get_nameday(t, 0));
   text_layer_set_text(nameday2_line, get_nameday(t, 1));
 
+}
+
+static void battery_handler(BatteryChargeState new_state) {
+  static char s_battery_buffer[32];
+  snprintf(s_battery_buffer, sizeof(s_battery_buffer), "%d%c", new_state.charge_percent, 37);
+  if (icon_battery) {
+    gbitmap_destroy(icon_battery);
+  }
+  if (new_state.is_charging) {
+    icon_battery = gbitmap_create_with_resource(BATTERY_CH_ICON[new_state.charge_percent/10]);
+  } else {
+    icon_battery = gbitmap_create_with_resource(BATTERY_ICON[new_state.charge_percent/10]);
+  }
+  bitmap_layer_set_bitmap(battery_layer, icon_battery);
+  text_layer_set_text(battery_percent_layer, s_battery_buffer);
 }
 
 static void update_time() {
@@ -193,6 +239,12 @@ static void main_window_load(Window *window) {
 
   request_weather();
 
+  battery_layer = bitmap_layer_create(GRect(106, 91, 9, 16));
+  battery_percent_layer = text_layer_create(GRect(118, 91, 24, 16));
+  configureLayer(battery_percent_layer, FONT_KEY_GOTHIC_14, GTextAlignmentRight);
+
+  battery_handler(battery_state_service_peek());
+
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(main_digits));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(seconds));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(day_in_week));
@@ -205,6 +257,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(temperature_next_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(now_layer));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(tomorrow_layer));
+  layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(battery_layer));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(battery_percent_layer));
 }
 
 static void main_window_unload(Window *window) {
@@ -227,6 +281,11 @@ static void main_window_unload(Window *window) {
   }
   text_layer_destroy(now_layer);
   text_layer_destroy(tomorrow_layer);
+  text_layer_destroy(battery_percent_layer);
+  bitmap_layer_destroy(battery_layer);
+  if (icon_battery) {
+    gbitmap_destroy(icon_battery);
+  }
 }
 
 static void refresh_every_second(struct tm *tick_time, TimeUnits units_changed) {
@@ -255,6 +314,8 @@ static void init() {
   window_stack_push(s_main_window, true);
   // Registrace sekundového sledování
   tick_timer_service_subscribe(SECOND_UNIT, refresh_every_second);
+  // Registrace sledování baterie
+  battery_state_service_subscribe(battery_handler);
 }
 
 static void deinit() {
