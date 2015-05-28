@@ -154,7 +154,7 @@ static void update_day() {
 
 static void battery_handler(BatteryChargeState new_state) {
   static char s_battery_buffer[32];
-  snprintf(s_battery_buffer, sizeof(s_battery_buffer), "%d%c", new_state.charge_percent, 37);
+  snprintf(s_battery_buffer, sizeof(s_battery_buffer), "%d%%", new_state.charge_percent);
   if (icon_battery) {
     gbitmap_destroy(icon_battery);
   }
@@ -240,7 +240,7 @@ static void main_window_load(Window *window) {
   request_weather();
 
   battery_layer = bitmap_layer_create(GRect(106, 91, 9, 16));
-  battery_percent_layer = text_layer_create(GRect(118, 91, 24, 16));
+  battery_percent_layer = text_layer_create(GRect(115, 91, 30, 16));
   configureLayer(battery_percent_layer, FONT_KEY_GOTHIC_14, GTextAlignmentRight);
 
   battery_handler(battery_state_service_peek());
