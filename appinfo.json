@@ -4,7 +4,7 @@
   "longName": "czDigiWatch",
   "companyName": "kecinzer",
   "versionCode": 1,
-  "versionLabel": "1.6",
+  "versionLabel": "1.7",
   "watchapp": {
     "watchface": true
   },
